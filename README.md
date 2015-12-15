@@ -3,7 +3,9 @@ Chainer implementation of Deep Convolutional Generative Adversarial Network (htt
 
 ## 説明
 画像を生成するニューラルネットです。
+
 12/24のchainer advent calendarにて解説を書く予定です。 http://qiita.com/advent-calendar/2015/chainer
+
 このコードは現在実験段階であり、突然の変更などの可能性が十分あります。ご了承ください。
 
 ## 使い方
@@ -13,3 +15,8 @@ Chainer implementation of Deep Convolutional Generative Adversarial Network (htt
 
 
 過学習じゃないよ
+
+## 参考文献
+本家の実装です。モデルの相違点はleaky_reluの代わりにeluを使っているくらいです。 https://github.com/soumith/dcgan.torch
+
+
