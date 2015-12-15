@@ -2,21 +2,28 @@
 Chainer implementation of Deep Convolutional Generative Adversarial Network (http://arxiv.org/abs/1511.06434)
 
 ## 説明
-画像を生成するニューラルネットです。
+画像を生成するニューラルネットです。<br>
+12/24のchainer advent calendarにて解説を書く予定です。 http://qiita.com/advent-calendar/2015/chainer <br>
+このコードは現在試行錯誤の途中であり、突然の変更などの可能性が十分あります。ご了承ください。
 
-12/24のchainer advent calendarにて解説を書く予定です。 http://qiita.com/advent-calendar/2015/chainer
-
-このコードは現在実験段階であり、突然の変更などの可能性が十分あります。ご了承ください。
-
-## 使い方
-ほげほげ
+## 使い方(暫定)
+* chainer 1.5が必要
+* GPUが必要
+* 学習済みモデルから生成のみを行うには、visualizer.pyを使用する。
+``` python visualizer.py ```
+* 学習を行うにはDCGAN.pyを実行する。image_dir変数で指定されたディレクトリに、学習元となる画像ファイルを置く。何時間かかかる。
 
 ## サンプル
+20万枚の顔イラスト画像で約3時間学習を行った結果(GTX 970使用)。
+<img src="https://raw.githubusercontent.com/mattya/chainer-DCGAN/master/sample1.png" height="800px">
 
-
-過学習じゃないよ
+特定の画像の生成元となったベクトルzにノイズを加えると、髪型や服装などが少しずつ異なる画像を生成できる。
+このことから、本モデルが過学習しているわけではない(特定の画像を暗記しているわけではない)ことが示唆される。
+<img src="https://raw.githubusercontent.com/mattya/chainer-DCGAN/master/sample2.png" height="600px">
 
 ## 参考文献
 本家の実装です。モデルの相違点はleaky_reluの代わりにeluを使っているくらいです。 https://github.com/soumith/dcgan.torch
+
+
 
 
