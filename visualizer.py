@@ -24,7 +24,7 @@ import numpy
 
 nz = 100
 
-model_file = 'dcgan_model_gen_5.h5'
+model_file = 'generator_model.h5'
 out_file = 'output.png'
 
 class Generator(chainer.Chain):
@@ -56,12 +56,9 @@ def clip_img(x):
 	return np.float32(-1 if x<-1 else (1 if x>1 else x))
 
 
-xp = cuda.cupy
-cuda.get_device(0).use()
-
+xp = numpy
 
 gen = Generator()
-gen.to_gpu()
 
 serializers.load_hdf5(model_file, gen)
 
@@ -69,10 +66,10 @@ serializers.load_hdf5(model_file, gen)
 pylab.rcParams['figure.figsize'] = (22.0,22.0)
 pylab.clf()
 vissize = 100
-z = (xp.random.uniform(-1, 1, (100, 100), dtype=np.float32))
+z = (xp.random.uniform(-1, 1, (100, 100)).astype(np.float32))
 z = Variable(z)
 x = gen(z, test=True)
-x = x.data.get()
+x = x.data
 for i_ in range(100):
     tmp = ((np.vectorize(clip_img)(x[i_,:,:,:])+1)/2).transpose(1,2,0)
     pylab.subplot(10,10,i_+1)
