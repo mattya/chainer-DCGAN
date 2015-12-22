@@ -10,7 +10,7 @@
 <script src="js/util.js"></script>
 <script src="js/convnet.js"></script>
 <script src="js/gen_layers.js"></script>
-<script src="js/zws.js"></script>
+<script src="js/zws5.js"></script>
 
 <script src="js/image-helpers.js"></script>
 <script src="js/pica.js"></script>
@@ -97,26 +97,40 @@ var draw_activations_COLOR = function(elt, A, scale, grads) {
   net.layers[9].fromJSON(layer_4);
 
   var sliders = [];
+  var strength = []
   var z0 = [];
 
+  var num_tags = 122;
 
   var initialize = function(){
       var doms = [];
-      for(var i=0; i<200; i++){
         dom = document.createElement('div');
-        dom.className = "box";
-        dom.innerHTML = zws['w'][i]['name'] + "<br>";
+        //dom.className = "box";
+        dom.innerHTML = "noise_strength" + "<br>";
         doms.push(dom);
-        document.getElementById('z').appendChild(doms[i]);
+        document.getElementById('z').appendChild(doms[0]);
+        strength.push(document.createElement('input'));
+        strength[0].type="range";
+        strength[0].value=100;
+        strength[0].min='0';
+        strength[0].max='100';
+        strength[0].step='1';
+        doms[0].appendChild(strength[0]);
+      for(var i=0; i<num_tags; i++){
+            dom = document.createElement('div');
+            dom.className = "box";
+            dom.innerHTML = zws['w'][i]['name'] + "<br>";
+            doms.push(dom);
+            document.getElementById('z').appendChild(doms[i]);
       }
-      for(var i=0; i<200; i++){
+      for(var i=0; i<num_tags; i++){
         sliders.push(document.createElement('input'));
         sliders[i].type="range";
         sliders[i].value=0;
-        sliders[i].min='0';
+        sliders[i].min='-100';
         sliders[i].max='100';
         sliders[i].step='1';
-        doms[i].appendChild(sliders[i]);
+        doms[i+1].appendChild(sliders[i]);
       }
       for(var i=0; i<100; i++){
         z0.push(Math.random()*2.0-1.0);
@@ -127,14 +141,14 @@ var draw_activations_COLOR = function(elt, A, scale, grads) {
   var shuffle = function(){
       for(var i=0; i<100; i++){
         //sliders[i].value=Math.random()*100;
-        z0[i] = Math.random()*2.0-1.0;
+        z0[i] = (Math.random()*2.0-1.0);
       }
       test();
 
   }
 
   var reset_value = function(){
-      for(var i=0; i<200; i++){
+      for(var i=0; i<num_tags; i++){
         sliders[i].value=0;
       }
   }
@@ -148,18 +162,21 @@ var draw_activations_COLOR = function(elt, A, scale, grads) {
       for(var i=0; i<100; i++){
 //        x.set(0,0,i,Math.random()*2.0-1.0);
 //        x.set(0,0,i,sliders[i].value/50.0-1.0);
-          var z = z0[i];
-          for(var j=0; j<200; j++){
-            z += sliders[j].value/10.0 * zws['w'][j]['v'][i];
+          var z = strength[0].value/100.0*z0[i];
+          for(var j=0; j<num_tags; j++){
+            z += sliders[j].value/200.0 * zws['w'][j]['v'][i];
           }
           if(z>1) z=1;
           else if(z<-1) z=-1;
           x.set(0,0,i,z);
       }
       img = net.forward(x);
-      draw_activations_COLOR(document.getElementById('hoge'), img, 1);
+      draw_activations_COLOR(document.getElementById('hoge'), img);
       //console.log(JSON.stringify(net.toJSON()));
   }
+  // ------------------------
+  // END CIFAR-10 SPECIFIC STUFF
+  // ------------------------
 </script>
 
 </head>
@@ -175,6 +192,5 @@ var draw_activations_COLOR = function(elt, A, scale, grads) {
     <div id="param"></div>
 </body>
 </html>
-
 
 
