@@ -36,7 +36,7 @@ var clip_pixel = function(x){
 
 var draw_activations_COLOR = function(elt, A, scale, grads) {
 
-  var s = scale || 2; // scale
+  var s = scale || 1; // scale
   var draw_grads = false;
   if(typeof(grads) !== 'undefined') draw_grads = grads;
 
