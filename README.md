@@ -1,3 +1,5 @@
+## You can try web demo [here](http://mattya.github.io/chainer-DCGAN/) !!
+
 # chainer-DCGAN
 Chainer implementation of Deep Convolutional Generative Adversarial Network (http://arxiv.org/abs/1511.06434)
 
