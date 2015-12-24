@@ -181,6 +181,14 @@ var draw_activations_COLOR = function(elt, A, scale, grads) {
 
 </head>
 <body onload="initialize()">
+    <div style="margin:5px; padding:10px; border: solid 1px;">
+      <li>各タグベクトルに強度を掛けた総和 ＋ ノイズ を元に、ニューラルネットが画像を生成します</li>
+      <li>noise strengthスライダーでノイズ強度を調整できます。変な画像が多いときは下げて、似たような画像ばかり出るときは上げましょう</li>
+      <li>各タグ強度の初期値は0で、右に動かすとプラスに、左に動かすとマイナスになります</li>
+      <li>draw!ボタンを押すと、ノイズはそのままにタグ強度の更新を反映します</li>
+      <li>shuffle!ボタンを押すと、タグ強度の更新を反映し、ノイズも再サンプルします</li>
+      <li>reset!ボタンは各タグ強度を0にリセットするだけです</li>
+    </div>
     <div id="hoge">
 
     </div>
