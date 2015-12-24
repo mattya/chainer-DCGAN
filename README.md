@@ -5,7 +5,7 @@ Chainer implementation of Deep Convolutional Generative Adversarial Network (htt
 
 ## 説明
 画像を生成するニューラルネットです。<br>
-12/24のchainer advent calendarにて解説を書く予定です。 http://qiita.com/advent-calendar/2015/chainer <br>
+12/24のchainer advent calendarに解説を書きました。 http://qiita.com/mattya/items/e5bfe5e04b9d2f0bbd47 <br>
 このコードは現在試行錯誤の途中であり、突然の変更などの可能性が十分あります。ご了承ください。
 
 ## 使い方(暫定)
