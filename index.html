@@ -44,6 +44,11 @@ var clip_pixel = function(x){
   else return 255*(x+1.0)/2.0;
 }
 
+var canvas_dump_image_event = function(e) {
+  var canv = e.target;
+  window.open(canv.toDataURL('image/png'));
+}
+
 var draw_activations_COLOR = function(elt, A, scale, grads) {
 
   var s = scale || 1; // scale
@@ -82,6 +87,7 @@ var draw_activations_COLOR = function(elt, A, scale, grads) {
     }
   }
   ctx.putImageData(g, 0, 0);
+  canv.addEventListener("click", canvas_dump_image_event);
   elt.appendChild(canv);
 }
 
