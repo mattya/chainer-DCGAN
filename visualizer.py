@@ -22,10 +22,19 @@ import chainer.links as L
 
 import numpy
 
-nz = 100
+import settings
 
-model_file = 'generator_model.h5'
-out_file = 'output.png'
+nz = settings.CONFIG['nz']
+cfg = settings.CONFIG['visualize']
+
+model_file = cfg['paths']['model_file']
+out_file = cfg['paths']['out_file']
+
+out_height_num = cfg['out_height_num']
+out_width_num = cfg['out_width_num']
+out_height = cfg['out_height']
+out_width = cfg['out_width']
+vissize = out_height_num * out_width_num
 
 class Generator(chainer.Chain):
     def __init__(self):
@@ -63,16 +72,15 @@ gen = Generator()
 serializers.load_hdf5(model_file, gen)
 
 
-pylab.rcParams['figure.figsize'] = (22.0,22.0)
+pylab.rcParams['figure.figsize'] = (out_width, out_height)
 pylab.clf()
-vissize = 100
-z = (xp.random.uniform(-1, 1, (100, 100)).astype(np.float32))
+z = (xp.random.uniform(-1, 1, (vissize, nz)).astype(np.float32))
 z = Variable(z)
 x = gen(z, test=True)
 x = x.data
-for i_ in range(100):
+for i_ in range(vissize):
     tmp = ((np.vectorize(clip_img)(x[i_,:,:,:])+1)/2).transpose(1,2,0)
-    pylab.subplot(10,10,i_+1)
+    pylab.subplot(out_height_num, out_width_num, i_+1)
     pylab.imshow(tmp)
     pylab.axis('off')
 pylab.savefig(out_file)

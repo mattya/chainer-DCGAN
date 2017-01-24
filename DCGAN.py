@@ -22,17 +22,19 @@ import chainer.links as L
 
 import numpy
 
+import settings
 
-image_dir = './images'
-out_image_dir = './out_images'
-out_model_dir = './out_models'
+nz = settings.CONFIG['nz']
+cfg = settings.CONFIG['train']
 
+image_dir = cfg['paths']['dataset']
+out_image_dir = cfg['paths']['out_image_dir']
+out_model_dir = cfg['paths']['out_model_dir']
 
-nz = 100          # # of dim for Z
-batchsize=100
-n_epoch=10000
-n_train=200000
-image_save_interval = 50000
+batchsize = cfg['batchsize']
+n_epoch = cfg['n_epoch']
+n_train = cfg['n_train']
+image_save_interval = cfg['image_save_interval']
 
 # read all images
 
