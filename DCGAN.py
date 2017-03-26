@@ -239,7 +239,7 @@ def train_dcgan_labeled(gen, dis, epoch0=0):
 
 
 
-xp = cuda.cupy
+xp = cuda.copy
 cuda.get_device(0).use()
 
 gen = Generator()
